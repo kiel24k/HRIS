@@ -16,15 +16,14 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     && update-ca-certificates \
     && docker-php-ext-install \
-    && docker-php-ext-install pdo_pgsql pgsql \
-    && docker-php-ext-install pdo_mysql mbstring zip xml ctype dom simplexml \
     pdo_mysql \
+    pgsql \
     mbstring \
     zip \
-    xml \
-    ctype \
-    dom \
+    ctype \ 
+    dom \ 
     simplexml \
+    xml \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer

@@ -4,7 +4,7 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - "backend"
+      - "laravel-backend"
 
   laravel-backend:
     build: ./backend
@@ -19,7 +19,7 @@ services:
       - DB_PASSWORD=kielpostgres
 
   postgres:
-    image: postgres:16,
+    image: postgres:16
     restart: always
     environment:
       POSTGRES_USER: ${DB_USERNAME}
@@ -31,5 +31,4 @@ services:
 networks:
   app_network:
 
-volumes:
-  pgdata:
+

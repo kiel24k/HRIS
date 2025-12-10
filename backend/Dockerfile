@@ -15,7 +15,10 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libonig-dev \
     && update-ca-certificates \
-    && docker-php-ext-install \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install \
+    pdo_pgsql \
     pdo_mysql \
     pgsql \
     mbstring \
@@ -23,24 +26,25 @@ RUN apt-get update && apt-get install -y \
     ctype \ 
     dom \ 
     simplexml \
-    xml \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    xml 
 
 # Install Composer
 COPY --from=composer:2.9 /usr/bin/composer /usr/bin/composer
 
 # Copy full application first
-# COPY . .
+COPY . .
 
 # Copy dotenv
 RUN cp .env.example .env
 
-# Install PHP dependencies || --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
-RUN composer install 
+# Install PHP dependencies || 
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
 RUN composer update
 
 # Generate Laravel key BEFORE optimize
+
 RUN php artisan key:generate
+RUN php artisan optimize
 RUN php artisan migrate
 
 

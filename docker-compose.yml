@@ -8,7 +8,8 @@ services:
 
   laravel-backend:
     build: ./backend
-    ports: "8000:8000"
+    ports:
+      - "8000:8000"
     environment:
       - DB_CONNECTION=pgsql
       - DB_HOST=hris-db

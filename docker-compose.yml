@@ -12,7 +12,7 @@ services:
       - "8000:8000"
     environment:
       - DB_CONNECTION=pgsql
-      - DB_HOST=hris-db
+      - DB_HOST=postgreshost
       - DB_PORT=5432
       - DB_DATABASE=backend_hris_test
       - DB_USERNAME=postgres
